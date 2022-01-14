@@ -18,7 +18,11 @@ export const BudgetsProvider = ({ children }) => {
     return expenses.filter(expense => expense.budgetId === budgetId)
   }
 
+  // THIS FUNCTION ADDS EXPENSE TO A SPECIFIC BUDGET.
+  // IT EXPECTS BUDGETID, AMOUNT OF SPENDING, DESCRIPTION OF AN EXPENSE.
   function addExpense({ description, amount, budgetId }) {
+    // WILL RETURN ALL EXPENSES IN AN ARRAY OF OBJECTS INCLUDING THE NEW EXPENSE.
+    // AND GIVE A RANDOM ID
     setExpenses(prevExpenses => {
       return [...prevExpenses, { id: uuidV4(), description, amount, budgetId }]
     })
