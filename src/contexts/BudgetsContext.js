@@ -17,14 +17,18 @@ export const BudgetsProvider = ({ children }) => {
   function getBudgetExpenses(budgetId) {
     return expenses.filter(expense => expense.budgetId === budgetId)
   }
+
   function addExpense({ description, amount, budgetId }) {
     setExpenses(prevExpenses => {
-console.log(description)
-
       return [...prevExpenses, { id: uuidV4(), description, amount, budgetId }]
     })
   }
+
+  // THIS FUNCTION ADDS A BUDGET. IT EXPECTS NAME AND MAXIMUM SPENDING AMOUNT AS INPUTS
   function addBudget({ name, max }) {
+    // CHECK IF NAME OF THE BUDGET IS ALREADY THERE.
+    // IF YES, RETURN WHAT WAS ALREADY THERE.
+    // IF NO, ADD A NEW BUDGET AND RETURN ALL BUDGETS.
     setBudgets(prevBudgets => {
       if (prevBudgets.find(budget => budget.name === name)) {
         return prevBudgets
@@ -32,6 +36,7 @@ console.log(description)
       return [...prevBudgets, { id: uuidV4(), name, max }]
     })
   }
+
   function deleteBudget({ id }) {
     setExpenses(prevExpenses => {
       return prevExpenses.map(expense => {
@@ -39,11 +44,11 @@ console.log(description)
         return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID }
       })
     })
-
     setBudgets(prevBudgets => {
       return prevBudgets.filter(budget => budget.id !== id)
     })
   }
+
   function deleteExpense({ id }) {
     setExpenses(prevExpenses => {
       return prevExpenses.filter(expense => expense.id !== id)
